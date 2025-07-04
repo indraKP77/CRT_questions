@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    int n;
+    int n;//Leetcode Next Greater Element and Next Greater Element 2
     cin >> n;
     vector<int> nums(n, 0);
     for (int i = 0; i < nums.size(); i++)
