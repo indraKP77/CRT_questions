@@ -62,6 +62,7 @@ void insertAtEnd(int val){
     Node* newNode = new Node(val);
     if(tail == NULL){
         tail = newNode;
+        return;
     }
     Node* temp = head;
     while(temp->next!=NULL){
@@ -69,6 +70,21 @@ void insertAtEnd(int val){
     }
     temp->next = newNode;
     tail = newNode;
+}
+void insertAtPos(int val,int pos){
+    if(pos == 1){
+        insertATBeg(val);
+        return;
+    }
+    Node* temp = head;
+    while(pos!=0){
+        pos--;
+        temp = temp->next;
+    }
+    Node* temp2 = temp->next;
+    Node* newNode = new Node(val);
+    temp->next = newNode;
+    newNode->next = temp2;
 }
 
 bool cycle(){
@@ -84,6 +100,20 @@ bool cycle(){
     return false;
 }
 
+void helper(Node* temp){
+    if(temp == NULL){
+        return;
+    }
+    cout<<temp->data<<" ";
+    helper(temp->next);
+}
+
+void display1(){
+    Node* temp =head;
+    cout<<temp->data<<" ";
+    helper(temp->next);
+}
+
 };
 int main(){
     List l1;
@@ -93,6 +123,7 @@ int main(){
     l1.insert(4);
     l1.insertATBeg(5);
     l1.insertAtEnd(6);
-    l1.display();
+    l1.insertAtPos(25,4);
+    l1.display1();
     return 0;
 }
