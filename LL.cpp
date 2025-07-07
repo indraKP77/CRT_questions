@@ -17,6 +17,15 @@ class List{
     List(){
         head = tail = NULL;
     }
+    void insertATBeg(int val){
+        if(head == NULL){
+            Node* newNode = new Node(val);
+            head = newNode;
+        }
+        Node* newNode = new Node(val);
+        newNode->next = head;
+        head = newNode;
+    }
     void insert(int val){
         Node* newNode = new Node(val);
         if(head == NULL && tail == NULL){
@@ -49,6 +58,19 @@ class List{
     head = prev;  
 }
 
+void insertAtEnd(int val){
+    Node* newNode = new Node(val);
+    if(tail == NULL){
+        tail = newNode;
+    }
+    Node* temp = head;
+    while(temp->next!=NULL){
+        temp = temp->next;
+    }
+    temp->next = newNode;
+    tail = newNode;
+}
+
 bool cycle(){
     Node* slow = head;
     Node* fast = head;
@@ -69,14 +91,8 @@ int main(){
     l1.insert(2);
     l1.insert(3);
     l1.insert(4);
-    l1.reverse();
+    l1.insertATBeg(5);
+    l1.insertAtEnd(6);
     l1.display();
-    bool isCycle = l1.cycle();
-    if(isCycle){
-        cout<<"\nThere is a cycle"<<endl;
-    }
-    else{
-        cout<<"\nNo cycle"<<endl;
-    }
     return 0;
 }
