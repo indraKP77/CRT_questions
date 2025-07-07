@@ -114,6 +114,20 @@ void display1(){
     helper(temp->next);
 }
 
+void deleteDup(){
+    Node* temp = head;
+    while(temp!=NULL){
+        Node* nextNode = temp->next;
+        while(nextNode!=NULL && temp->data == nextNode->data){
+            Node* dup = nextNode;
+            nextNode = nextNode->next;
+            delete(dup);
+        }
+        temp->next = nextNode;
+        temp = temp->next;
+    }
+}
+
 };
 int main(){
     List l1;
@@ -121,9 +135,13 @@ int main(){
     l1.insert(2);
     l1.insert(3);
     l1.insert(4);
-    l1.insertATBeg(5);
-    l1.insertAtEnd(6);
-    l1.insertAtPos(25,4);
+    l1.insert(6);
+    l1.insert(6);
+    l1.insert(6);
+    l1.insert(7);
+    l1.display1();
+    l1.deleteDup();
+    cout<<endl;
     l1.display1();
     return 0;
 }
