@@ -39,6 +39,21 @@ class List{
             temp = temp->next;
         }
     }
+    void reverse(){
+        Node* tempHead = head;
+        tail->next = NULL;
+        Node* curr = head;
+        Node* prev = NULL;
+        Node* nex = NULL;
+        while(curr){
+            nex = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = nex;
+        }
+        head = prev;
+        tempHead->next = prev;
+    }
 };
 
 int main(){
@@ -46,6 +61,9 @@ int main(){
     l1.insert(1);
     l1.insert(2);
     l1.insert(3);
+    l1.display();
+    l1.reverse();
+    cout<<endl;
     l1.display();
     return 0;
 }
