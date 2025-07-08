@@ -1,4 +1,5 @@
 #include<iostream>
+#include<unordered_map>
 using namespace std;
 
 class Node{
@@ -128,6 +129,73 @@ void deleteDup(){
     }
 }
 
+void deleteAtBeg(){
+    if(head == NULL){
+        return;
+    }
+    Node* temp = head;
+    head = head->next;
+    temp->next = NULL;
+    delete(temp);
+}
+
+void delAtEnd(){
+    if(tail == NULL){
+        return;
+    }
+    Node* temp = head;
+    Node* prev = NULL;
+    while(temp->next!=NULL){
+        prev = temp;
+        temp = temp->next;
+    }
+    prev->next = NULL;
+    delete(temp);
+    tail = prev;
+}
+
+void delSpecPos(int pos) {
+    if (head == NULL || pos <= 0) {
+        cout << "Invalid position or empty list" << endl;
+        return;
+    }
+
+    if (pos == 1) {
+        deleteAtBeg();
+        return;
+    }
+
+    Node* temp = head;
+    for (int i = 1; temp != NULL && i < pos - 1; i++) {
+        temp = temp->next;
+    }
+
+    if (temp == NULL || temp->next == NULL) {
+        cout << "Position out of bounds" << endl;
+        return;
+    }
+
+    Node* delNode = temp->next;
+    temp->next = delNode->next;
+    delete delNode;
+}
+
+void removeCycle() {
+    unordered_map<Node*, int> mpp;
+    Node* temp = head;
+    Node* prev = NULL;
+    while (temp != NULL) {
+        if (mpp.find(temp) != mpp.end()) {
+            prev->next = NULL;
+            return;
+        }
+        mpp[temp] = 1;
+        prev = temp;
+        temp = temp->next;
+    }
+}
+
+
 };
 int main(){
     List l1;
@@ -135,12 +203,9 @@ int main(){
     l1.insert(2);
     l1.insert(3);
     l1.insert(4);
-    l1.insert(6);
-    l1.insert(6);
-    l1.insert(6);
     l1.insert(7);
     l1.display1();
-    l1.deleteDup();
+    l1.delSpecPos(3);
     cout<<endl;
     l1.display1();
     return 0;
