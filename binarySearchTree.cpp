@@ -36,20 +36,6 @@ void inorder(Node* root){
     inorder(root->right);
 }
 
-bool search(Node* root,int key){
-    if(root == NULL){
-        return false;
-    }
-    if(root->data == key){
-        return true;
-    }
-    if(key<root->data){
-        return search(root->left,key);
-    }
-    else{
-        return search(root->right,key);
-    }
-}
 
 void levelOrder(Node* root){
     queue<Node*> q;
@@ -95,6 +81,41 @@ int heightOfTree(Node* root){
     return 1 + max(lh,rh);
 }
 
+void zigzagLevelOrder(Node* root){
+    vector<vector<int>> result;
+    queue<Node*> q;
+    q.push(root);
+    while(!q.empty()){
+        vector<int> level;
+        int n = q.size();
+        while(n--){
+            Node* front = q.front();
+            q.pop();
+            level.push_back(front->data);
+            if(front->left){
+                q.push(front->left);
+            }
+            if(front->right){
+                q.push(front->right);
+            }
+        }
+        result.push_back(level);
+    }
+    for(int i = 0;i < result.size();i++){
+        if(i%2 == 0){
+            for(int j = 0;j < result[i].size();j++){
+                cout<<result[i][j]<<" ";
+            }
+        }
+        else{
+                for(int j = result[i].size()-1;j>=0;j--){
+                    cout<<result[i][j]<<" ";
+                }
+            }
+            cout<<endl;
+    }
+}
+
 Node* getIS(Node* root){
     while(root!=NULL && root->left!=NULL){
         root = root->left;
@@ -132,15 +153,61 @@ Node* delNode(Node* root,int key){
     return root;
 }
 
+int maxValue(Node* root) {
+    if (root == NULL) {
+        return -1; // or throw an exception if tree is empty
+    }
+    Node* curr = root;
+    while (curr->right != NULL) {
+        curr = curr->right;
+    }
+    return curr->data;
+}
+
+void leftView(Node* root){
+    queue<Node*> q;
+    vector<vector<int>> res;
+    q.push(root);
+    while(!q.empty()){
+        int n = q.size();
+        vector<int> level;
+        while(n--){
+            Node* front = q.front();
+            q.pop();
+            level.push_back(front->data);
+            if(front->left){
+                q.push(front->left);
+            }
+            if(front->right){
+                q.push(front->right);
+            }
+        }
+        res.push_back(level);
+    }
+    for(int i = 0;i < res.size();i++){
+        cout<<res[i][0]<<" ";
+    }
+}
+
+bool search(Node* root,int key){
+    if(root == NULL){
+        return false;
+    }
+    if(root->data == key){
+        return true;
+    }
+    if(key<root->data){
+        return search(root->left,key);
+    }
+    else{
+        return search(root->right,key);
+    }
+}
+
+
 int main(){
     vector<int> arr = {27,14,35,10,19,31,42};
     Node* root =  buildBST(arr);
-    cout<<endl;
-    inorder(root);
-    cout<<endl;
-    int height = heightOfTree(root);
-    cout<<"Height of Tree "<<height<<endl;
-    cout<<"Level Order "<<endl;
-    levelOrder(root);
+    cout<<"Search 10 "<<search(root,10);
     return 0;
 }
