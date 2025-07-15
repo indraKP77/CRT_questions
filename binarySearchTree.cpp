@@ -155,7 +155,7 @@ Node* delNode(Node* root,int key){
 
 int maxValue(Node* root) {
     if (root == NULL) {
-        return -1; // or throw an exception if tree is empty
+        return -1;
     }
     Node* curr = root;
     while (curr->right != NULL) {
@@ -208,6 +208,7 @@ bool search(Node* root,int key){
 int main(){
     vector<int> arr = {27,14,35,10,19,31,42};
     Node* root =  buildBST(arr);
-    cout<<"Search 10 "<<search(root,10);
+    root = delNode(root,14);
+    inorder(root);
     return 0;
 }
