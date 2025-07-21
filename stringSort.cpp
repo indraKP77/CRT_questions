@@ -78,7 +78,7 @@ int main() {
         cout << s << endl;
     }
 
-    sortByFirst(str); // You can also call sortByFirst(str1) if you want to sort by first char after length sort
+    sortByFirst(str);
 
     return 0;
 }
